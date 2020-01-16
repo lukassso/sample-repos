@@ -5,19 +5,22 @@ import './App.css';
 
 const APIKey = '5e6595efcaf37d474191d93bd3bb0ced'
 class App extends Component {
+  constructor(...args) {
+    super(...args)
+    this.state = {
+      value:'',
+      date: '',
+      city: '',
+      sunrise: '',
+      sunset: '',
+      temp: '',
+      pressure: '',
+      wind: '',
+      err: false
 
-
-  state = {
-    value:'',
-    date: '',
-    city: '',
-    sunrise: '',
-    sunset: '',
-    temp: '',
-    pressure: '',
-    wind: '',
-    err: false
   }
+  }
+
   handleInputChange = e => {
     this.setState({
       value: e.target.value
