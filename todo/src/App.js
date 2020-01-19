@@ -2,6 +2,13 @@ import React, { useState } from 'react';
 // import React from 'react';
 // import logo from './logo.svg';
 import './App.css';
+import './styles/button.css';
+import './styles/input.css';
+import './styles/todoList.css';
+import './styles/todo.css';
+
+
+
 import { ToDoList } from './components/ToDoList'
 
 
