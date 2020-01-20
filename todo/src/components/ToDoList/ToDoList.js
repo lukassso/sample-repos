@@ -38,6 +38,13 @@ function ToDoList(props) {
       inputValue: ""
     })
   }
+
+  const handleToDoRemove = (todoValue) => {
+    setTodoListState({ 
+      ...todoListState,
+      todos: todos.filter(todo => todo !== todoValue)
+    })
+  }
    
   const { error, todos, inputValue } =  todoListState;
 
@@ -52,7 +59,7 @@ function ToDoList(props) {
         placeholder = "co bedziesz dzis robić"
         value = { inputValue  }
         onChange = { handleInputChange } 
-      />
+      /> 
       <button
       className="Button"
         onClick= { handleButtonClick }
@@ -68,6 +75,7 @@ function ToDoList(props) {
       <Todo   
         key = { todo }
         todo = { todo }
+        handleCloseClick = { handleToDoRemove }
       />
 
       ))}

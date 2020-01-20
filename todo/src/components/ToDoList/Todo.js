@@ -1,12 +1,18 @@
 import React from 'react'
 
-export default function Todo(props) {
-  const { todo } = props;
+function Todo(props) {
+  const { todo, handleCloseClick } = props;
   return (
-    <div>
-      {todo} 
+    <div className="Todo">
+      <span>{todo}</span>
+      <button
+        className="Close"
+        onClick = {() => handleCloseClick (todo)}
+      >
+        X
+      </button>
     </div>
   )
 }
 
-// export default Todo;
+export default Todo;
