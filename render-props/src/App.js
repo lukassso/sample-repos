@@ -6,9 +6,12 @@ function App() {
   return (
     <div className="App">
       Hello World
-      <Modal>
-        {(value) => <div>Modal, {value} </div>}
-      </Modal> 
+      {/* <Modal> */}
+        {/* {(value) => <div>Modal, {value} </div>} */}
+        <Modal>
+          <div>Modal</div>
+        </Modal>
+      {/* </Modal>  */}
     </div>
 
   );
