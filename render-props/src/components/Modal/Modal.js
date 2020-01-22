@@ -1,11 +1,13 @@
 import React from 'react'
 
-function Modal({ children }) {
+
+function Modal({ children, isOpen }) {
+  if (!isOpen) return null;
+  
   return(
     <>
-      <div>Overlay</div>
-      {/* <div>{children("test")}</div> */}
-      <div>{children}</div>
+      <div className="Overlay"></div>
+      <div className="Modal">{children}</div>
     </>
   )
 }
