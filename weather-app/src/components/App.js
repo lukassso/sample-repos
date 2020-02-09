@@ -3,7 +3,6 @@ import Form from "./Form";
 import Result from "./Result";
 import "./App.css";
 
-const APIKey = "5e6595efcaf37d474191d93bd3bb0ced";
 class App extends Component {
   constructor(...args) {
     super(...args);
@@ -28,8 +27,7 @@ class App extends Component {
   handleCitySubmit = e => {
     e.preventDefault();
     // console.log("dududud");
-    const API = `http://api.openweathermap.org/data/2.5/weather?q=${this.state.value}&APPID=${APIKey}&units=metric`;
-
+    const API = `http://api.openweathermap.org/data/2.5/weather?q=${this.state.value}&APPID=${process.env.REACT_APP_WEATHER_API_KEY}&units=metric`;
     fetch(API)
       .then(response => {
         if (response.ok) {
@@ -62,6 +60,7 @@ class App extends Component {
       });
   };
   render() {
+
     return (
       <div className="App">
         Weather app
