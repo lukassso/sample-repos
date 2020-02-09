@@ -24,52 +24,97 @@ class App extends Component {
       value: e.target.value
     });
   };
-  handleCitySubmit = e => {
-    e.preventDefault();
-    // console.log("dududud");
-    const API = `http://api.openweathermap.org/data/2.5/weather?q=${this.state.value}&APPID=${process.env.REACT_APP_WEATHER_API_KEY}&units=metric`;
-    fetch(API)
-      .then(response => {
-        if (response.ok) {
-          console.log(response);
-          return response;
-        }
-        throw Error("Not working");
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data)
-        const time = new Date().toLocaleString();
-        this.setState(state => ({
-          err: false,
-          date: time,
-          sunrise: data.sys.sunrise,
-          sunset: data.sys.sunset,
-          temp: data.main.temp,
-          pressure: data.main.pressure,
-          wind: data.wind.speed,
-          city: data.value
-        }));
-      })
-      .catch(err => {
-        console.log(err);
-        this.setState(prevState => ({
-          err: true,
-          city: prevState.value
-        }));
-      });
-  };
-  render() {
 
+  componentDidMount() {
+    console.log("zamontowany");
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // console.log("poprzednia wartość" + prevState.value);
+    // console.log("aktualna wartość" + this.state.value);
+    if (this.state.value.lenght === 0) return;
+    if (prevState.value !== this.state.value) {
+      const API = `http://api.openweathermap.org/data/2.5/weather?q=${this.state.value}&APPID=${process.env.REACT_APP_WEATHER_API_KEY}&units=metric`;
+      fetch(API)
+        .then(response => {
+          if (response.ok) {
+            console.log(response);
+            return response;
+          }
+          throw Error("Not working");
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          const time = new Date().toLocaleString();
+          this.setState(state => ({
+            err: false,
+            date: time,
+            sunrise: data.sys.sunrise,
+            sunset: data.sys.sunset,
+            temp: data.main.temp,
+            pressure: data.main.pressure,
+            wind: data.wind.speed,
+            city: state.value
+          }));
+        })
+        .catch(err => {
+          console.log(err);
+          this.setState(prevState => ({
+            err: true,
+            city: prevState.value
+          }));
+        });
+    }
+  }
+
+  // this.setState({})
+
+  // handleCitySubmit = e => {
+  //   e.preventDefault();
+  //   // console.log("dududud");
+  //   const API = `http://api.openweathermap.org/data/2.5/weather?q=${this.state.value}&APPID=${process.env.REACT_APP_WEATHER_API_KEY}&units=metric`;
+  //   fetch(API)
+  //     .then(response => {
+  //       if (response.ok) {
+  //         console.log(response);
+  //         return response;
+  //       }
+  //       throw Error("Not working");
+  //     })
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       console.log(data)
+  //       const time = new Date().toLocaleString();
+  //       this.setState(state => ({
+  //         err: false,
+  //         date: time,
+  //         sunrise: data.sys.sunrise,
+  //         sunset: data.sys.sunset,
+  //         temp: data.main.temp,
+  //         pressure: data.main.pressure,
+  //         wind: data.wind.speed,
+  //         city: state.value
+  //       }));
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //       this.setState(prevState => ({
+  //         err: true,
+  //         city: prevState.value
+  //       }));
+  //     });
+  // };
+  render() {
     return (
-      <div className="App">
+      <div className="app">
         Weather app
         <Form
           value={this.state.value}
           change={this.handleInputChange}
-          submit={this.handleCitySubmit}
+          // submit={this.handleCitySubmit}
         />
-        <Result weather={this.state}  />
+        <Result weather={this.state} />
       </div>
     );
   }
