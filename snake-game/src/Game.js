@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Cells from "./Cells";
-import { START, BODY, FOOD, KEYS, COLS, ROWS } from "./const";
+import { START, BODY, FOOD, KEYS, COLS, ROWS, DIRS } from "./const";
 import "./style.css";
 
 class Game extends Component {
@@ -16,6 +16,7 @@ class Game extends Component {
 
     this.start = this.start.bind(this);
     this.frame = this.frame.bind(this);
+    this.handleKey = this.handleKey.bind(this);
   }
   componentDidMount() {
     this.start();
@@ -41,11 +42,17 @@ class Game extends Component {
 
   frame() {
     // console.log(this.getNextIndex(44, KEYS.down))
-    const { snake, board, direction } = this.state;
+    let { snake, board, direction } = this.state;
 
     const head = this.getNextIndex(snake[0], direction);
 
     const food = board[head] === FOOD || snake.length === 1;
+    
+    if(snake.indexOf(head) !== -1) {
+      this.setState({ gameOver: true });
+      return;
+    }
+
     if (food) {
       const maxCells = ROWS * COLS;
 
@@ -62,6 +69,11 @@ class Game extends Component {
     board[head] = BODY;
     snake.unshift(head);
 
+    if(this.nextDirection) {
+      direction = this.nextDirection;
+      this.nextDirection = null;
+    }
+
     this.setState(
       {
         board,
@@ -71,6 +83,20 @@ class Game extends Component {
         setTimeout(this.frame, 200);
       }
     );
+  }
+
+  handleKey = (event) => {
+    
+    const direction = event.nativeEvent.keyCode;
+    const diff = Math.abs(this.state.direction - direction)
+    
+    // console.log(diff, DIRS[direction])
+
+    if (DIRS[direction] && diff !== 0 && diff !== 2){
+      this.nextDirection = direction;
+      
+    }
+
   }
 
   getNextIndex(head, direction) {
@@ -95,12 +121,15 @@ class Game extends Component {
         return;
     }
     // console.log(x,y)
-    return COLS * y + x;
+    return (COLS * y) + x;
   }
 
   render() {
     const { board } = this.state;
-    return <Cells board={board} />;
+
+    return <Cells 
+    handleKey={this.handleKey}
+    board={board} />;
   }
 }
 
