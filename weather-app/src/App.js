@@ -1,8 +1,11 @@
 import React, { Component } from "react";
-import Form from "./components/Form";
-import Result from "./components/Result";
+import Form from "@bit/lukassso.bilkom.form";
+import Result from "@bit/lukassso.bilkom.result";
 import "./App.css";
-
+import IconFirst from '@bit/mui-org.material-ui-icons.cast-connected';
+import LinkApp from './components/LinkApp/LinkApp';
+import RadioApp from './components/RadioApp/RadioApp';
+import SliderApp from './components/SliderApp/SliderApp';
 class App extends Component {
   constructor(...args) {
     super(...args);
@@ -107,7 +110,15 @@ class App extends Component {
   // };
   render() {
     return (
+      <>
+      {/* <Link>Link materialui</Link> */}
+      <LinkApp />
+      <IconFirst />
+      <RadioApp />
+      <SliderApp />
+
       <div className="app">
+        
         Weather app
         <Form
           value={this.state.value}
@@ -116,6 +127,7 @@ class App extends Component {
         />
         <Result weather={this.state} />
       </div>
+      </>
     );
   }
 }
