@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import Form from "./Form";
-import Result from "./Result";
+import Form from "./components/Form";
+import Result from "./components/Result";
 import "./App.css";
 
 class App extends Component {
