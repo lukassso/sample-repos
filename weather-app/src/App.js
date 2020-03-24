@@ -6,6 +6,10 @@ import IconFirst from '@bit/mui-org.material-ui-icons.cast-connected';
 import LinkApp from './components/LinkApp/LinkApp';
 import RadioApp from './components/RadioApp/RadioApp';
 import SliderApp from './components/SliderApp/SliderApp';
+import FooterApp from './components/FooterApp/FooterApp';
+import ToolbarApp from './components/ToolbarApp/ToolbarApp';
+import HeroUnitApp from './components/HeroUnitApp/HeroUnitApp';
+
 class App extends Component {
   constructor(...args) {
     super(...args);
@@ -111,15 +115,14 @@ class App extends Component {
   render() {
     return (
       <>
-      {/* <Link>Link materialui</Link> */}
-      <LinkApp />
+      <ToolbarApp />
+      <HeroUnitApp />
+      {/* <LinkApp />
       <IconFirst />
       <RadioApp />
-      <SliderApp />
+      <SliderApp /> */}
 
       <div className="app">
-        
-        Weather app
         <Form
           value={this.state.value}
           change={this.handleInputChange}
@@ -127,6 +130,7 @@ class App extends Component {
         />
         <Result weather={this.state} />
       </div>
+      <FooterApp />
       </>
     );
   }
