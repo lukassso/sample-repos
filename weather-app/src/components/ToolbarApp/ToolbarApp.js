@@ -73,7 +73,7 @@ export default function Pricing() {
             noWrap
             className={classes.toolbarTitle}
           >
-            Company name
+            Company Bilkom
           </Typography>
           <nav>
             <Link
