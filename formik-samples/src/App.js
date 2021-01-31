@@ -47,6 +47,22 @@ const validationSchema = () =>
   });
 
 function App() {
+
+  const [person, setPerson] = React.useState({
+    firstName: '',
+    email: '',
+    lastName: '',
+    age: ''
+  })
+
+  const [people, setPeople] = React.useState([]);
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(event);
+  }
+
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -94,7 +110,7 @@ function App() {
               onChange={formik.handleChange}
               value={formik.values.firstName}
               placeholder="name"
-              // className={formik.errors.firstName ? 'red' : null}
+            // className={formik.errors.firstName ? 'red' : null}
             />
           </label>
           <label>
@@ -105,7 +121,7 @@ function App() {
               onChange={formik.handleChange}
               value={formik.values.lastName}
               placeholder="last name"
-              // className={formik.errors.firstName ? 'red' : null}
+            // className={formik.errors.firstName ? 'red' : null}
             />
           </label>
           <label>
@@ -116,7 +132,7 @@ function App() {
               onChange={formik.handleChange}
               value={formik.values.age}
               placeholder="age"
-              // className={formik.errors.firstName ? 'red' : null}
+            // className={formik.errors.firstName ? 'red' : null}
             />
           </label>
 
@@ -136,30 +152,7 @@ function App() {
         {/* {emailError} */}
         {/* {firstNameError} */}
         {errorsElements}
-
-        {/* <Form  noValidate validated={validated} onSubmit={formik.handleSubmit}>
-          <Form.Group controlId="firstName">
-            <Form.Label>First Name</Form.Label>
-            <Form.Control type="text" placeholder="First Name" />
-          </Form.Group>
-          <Form.Group controlId="email">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" />
-            <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
-            </Form.Text>
-          </Form.Group>
-          <Form.Group controlId="password">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" />
-          </Form.Group>
-          <Form.Group controlId="formBasicCheckbox">
-            <Form.Check type="checkbox" label="Check me out" />
-          </Form.Group>
-          <Button variant="primary" type="submit">
-            Submit
-          </Button>
-        </Form> */}
+        <Card.button onClick={handleSubmit>Add Person</Card.button>
       </Card.Body>
       <Card.Footer className="text-muted">lukassso</Card.Footer>
     </Card>
