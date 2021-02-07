@@ -30,37 +30,65 @@ import { Button, Card, Form, Container, Row, Col } from "react-bootstrap";
 const validationSchema = () =>
   yup.object().shape({
     email: yup
-      .string()
+      .string('write email')
       .required("email is required")
       .email("email is not correct"),
     firstName: yup
-      .string()
+      .string('name is empty')
       .required("name is required!")
       .min(4, "name is too short")
       .max(19, "name is too long. Max 11 charts"),
-    lastName: yup.string().required(),
+    lastName: yup
+    .string('write surname')
+    .required('surname is required'),
     age: yup
-      .number()
+      .number('write your age')
       .min(18, "you have to be of age")
       .max(60, "...")
       .required("Write your age"),
   });
 
 function App() {
+  
+const people = [
+  "Siri",
+  "Alexa",
+  "Google",
+  "Facebook",
+  "Twitter",
+  "Linkedin",
+  "Sinkedin"
+];
 
-  const [person, setPerson] = React.useState({
-    firstName: '',
-    email: '',
-    lastName: '',
-    age: ''
-  })
 
-  const [people, setPeople] = React.useState([]);
+  // const [person, setPerson] = React.useState({
+  //   firstName: '',
+  //   email: '',
+  //   lastName: '',
+  //   age: ''
+  // })
+
+  // const [people, setPeople] = React.useState([]);
+
+  const [searchTerm, setSearchTerm] = React.useState("");
+  const [searchResults, setSearchResults] = React.useState([]);
+  
+  const handleChange = e => {
+    setSearchTerm(e.target.value);
+    console.log(e)
+  };
+  React.useEffect(() => {
+    const results = people.filter(person =>
+      person.toLowerCase().includes(searchTerm)
+    );
+    setSearchResults(results);
+  }, [searchTerm]);
 
 
-  const handleSubmit = (e) => {
+  const handleSubmited = (e) => {
     e.preventDefault();
-    console.log(event);
+    e.target.name = 'tetwerwrwerw'
+    console.log(e);
   }
 
   const formik = useFormik({
@@ -107,8 +135,8 @@ function App() {
             <input
               type="text"
               name="firstName"
-              onChange={formik.handleChange}
-              value={formik.values.firstName}
+              onChange={handleChange}
+              value={formik.values.searchTerm}
               placeholder="name"
             // className={formik.errors.firstName ? 'red' : null}
             />
@@ -147,12 +175,17 @@ function App() {
               required
             />
           </label>
-          <button type="submit">Send</button>
+          {/* <button >Send</button> */}
         </form>
+         <ul>
+        {searchResults.map(item => (
+          <li>{item}</li>
+        ))}
+      </ul>
         {/* {emailError} */}
         {/* {firstNameError} */}
         {errorsElements}
-        <Card.button onClick={handleSubmit>Add Person</Card.button>
+        <Button type="submit" name='ddfsaf' onClick={handleSubmited}>Add Person</Button>
       </Card.Body>
       <Card.Footer className="text-muted">lukassso</Card.Footer>
     </Card>
