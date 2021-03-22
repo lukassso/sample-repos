@@ -6,36 +6,53 @@ import CartContainer from "./components/CartContainer";
 import cartItems from "./cart-items";
 // redux stuff
 
-import {createStore} from 'redux';
+import { createStore } from "redux";
 
 // store.getState
 
 // initial store
 const initialStore = {
-  count: 78
-}
+  count: 0,
+  name: "name",
+};
+
+const DECREASE = 'DECREASE';
 
 // reducer
 function reducer(state, action) {
-  console.log({state, action});
-  if(action.type === 'DECREASE'){
+  console.log({ state, action });
+  if (action.type === "DECREASE") {
     // console.log('it worked')
-    state.count = state.count -1;
-    return {count:state.count -1};
+    // state.count = state.count -1;
+    return { ...state, count: state.count - 1 };
   }
-  return state; 
+  if (action.type === "INCREASE") {
+    return { ...state, count: state.count + 1 };
+  }
+  if (action.type === "RESET") {
+    return { ...state, count: 0 };
+  }
+  if (action.type === "CHANGE_NAME") {
+    return { ...state, name:'other name'};
+  }
+  return state;
 }
 
 const store = createStore(reducer, initialStore);
-console.log(store)
-store.dispatch({type:'DECREASE'})
+console.log(store);
+store.dispatch({ type: "DECREASE" });
+store.dispatch({ type: "CHANGE_NAME" });
+store.dispatch({ type: "RESET" });
+store.dispatch({ type: "INCREASE" });
+store.dispatch({ type: "INCREASE" });
+// console.log(store.getState());
 
 function App() {
   // cart setup
 
   return (
     <main>
-      <Navbar cart={store.getState()}/>
+      <Navbar cart={store.getState()} />
       <CartContainer cart={cartItems} />
     </main>
   );
